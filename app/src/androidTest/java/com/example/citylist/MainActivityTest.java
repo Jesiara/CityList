@@ -76,4 +76,35 @@ public class MainActivityTest {
         Espresso.pressBack(); //Back button
     }
 
+    @Test
+    public void uiTest()
+    {
+        onView(withId(R.id.button_add)).perform(click()); //Click add button to add a city to the list
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton")); //Type a city name
+        onView(withId(R.id.button_confirm)).perform(click());//Confirm city name and add to list
+
+        onView(withId(R.id.button_add)).perform(click()); //Click add button to add a city to the list
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Dhaka")); //Type a city name
+        onView(withId(R.id.button_confirm)).perform(click());//Confirm city name and add to list
+
+        onView(withId(R.id.button_add)).perform(click()); //Click add button to add a city to the list
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Rajshahi")); //Type a city name
+        onView(withId(R.id.button_confirm)).perform(click());//Confirm city name and add to list
+
+
+        onData(anything()).inAdapterView(withId(R.id.city_list)).atPosition(1).perform(click());//check the city on the list
+
+        //check whether activity correctly switched
+        onView(withId(R.id.show)).check(matches(isDisplayed()));//check moving to new activity
+
+        //Test whether city name is consistent
+        onView(withText("Dhaka")).check(matches(isDisplayed()));//check city name on the new activity
+
+        //Test back button
+        onView(withId(R.id.button)).perform(click());//clicking back button go to the preovious activity
+
+        onView(withId(R.id.main)).check(matches(isDisplayed()));
+
+    }
+
 }
